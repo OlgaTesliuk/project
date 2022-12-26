@@ -10,32 +10,112 @@
 <body>
 
 <script>
-    // console.log('start');
-    // try {
-    //     console.log('try block');
-    // } catch (e) {
-    //     console.error(e);
-    // } finally {
-    //     console.log('finally block');
-    // }
-    // console.log('end');
+    console.log('start');
 
+    //     function foo(obj) {
+    //         try {
+    //             console.log(obj.name);
+    //         } catch (e) {
+    //             console.log(`skdvbdvb`);
+    //         }
+    //     }
+    //
+    //     foo()
+    //
+    //     function divider(a, b) {
+    //         if (b === 0) {
+    //             throw new Error(`b is zero`)
+    //         }
+    //         return a / b;
+    //     }
+    //
+    //     try {
+    //         divider(10, 0)
+    //     } catch (e) {
+    //
+    //     }finally {
+    //         console.log(`vukonuetsia`);
+    //     }
+    // let a;
+    //      console.log(a?.name);
+    //
 
-    function calc(a, b) {
-        // try {
-        //
-        //
-        // } catch (e){
-        //
-        // }
-
-        if (b === 0) {
-            throw new Error('b is 0');
+    let user = {
+        name: `vasia`,
+        age: 31
+        wife: {
+            name: `katia`,
+            age: 30
         }
-        return a / b;
     }
 
-    calc(10, 0);
+    let {name, age} = user;
+    let {name, name, wife, wife: {name: wName, age: wAge}} = user;
+
+    let user2 = {...user, status: true};
+
+    let users = [
+        {name: 'vasya', age: 31, status: false},
+        {name: 'petya', age: 30, status: true},
+        {name: 'kolya', age: 29, status: true},
+        {name: 'olya', age: 28, status: false},
+        {name: 'max', age: 30, status: true},
+        {name: 'anya', age: 31, status: false},
+        {name: 'oleg', age: 28, status: false},
+        {name: 'andrey', age: 29, status: true},
+        {name: 'masha', age: 30, status: true},
+        {name: 'olya', age: 31, status: false},
+        {name: 'max', age: 31, status: true}
+    ];
+
+    users.map((value, index) => ({
+            name: value.name,
+            age: value.age,
+            status: value.status,
+            id: index + 1
+        }
+    ))
+    console.log(users.map((value, index) => ({...value, id: index + 1})));
+
+    let user4 = {
+        ...user
+    };
+    let stringify = JSON.stringify(user);
+    console.log(stringify);
+    let parse = JSON.parse(stringify);
+
+    function copyCenter(obj) {
+        // let s = JSON.stringify(obj);
+        //let p =JSON.parse(s);
+        return JSON.parse(JSON.stringify(obj));
+    }
+
+    const copy = (obj) => (JSON.parse(JSON.stringify(obj));
+
+    function userBilder(name, age) {
+        return {name, age};
+    }
+
+    let user2 = userBilder(`sasha`, 35);
+    console.log(user2.age);
+    user2.age = 66;
+
+    function userBildeer(name, age) {
+        let user = {name, age};
+        return {
+            setAge: function (newAge) {
+                if (typeof newAge === `string`) {
+                    throw new Error(`new age mast be number`)
+                } else {
+                    user.age = newAge;
+                }
+            },
+            user: function (){
+                return{...user};
+            },
+        };
+    }
+
 
 </script>
 </body>
