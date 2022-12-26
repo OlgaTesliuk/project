@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<ul class=`target`></ul>
+<h2>edn</h2>
+<script>
+    // let target =document.querySelector(`.target`);
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    //     //.then(info=> console.log(info));
+    //     .then(response=>response.json())
+    //     //.then(data=> console.log(data));
+    //     .then(users=>{
+    //         for (const user of users) {
+    //             let li = document.createElement(`li`);
+    //             li.innerText= user.name;
+    //             target.append(li);
+    //
+    //         }
+    //     });
+    fetch(a)
+        .then(response => response.json())
+        .then(value => {
+
+            let {data} = value; // let data = value.data;
+            console.log(data);
+            for (const user of data) {
+                let div = document.createElement(`div`);
+                div.classList.add(`user-box`);
+                let h2 = document.createElement(`h2`);
+
+                let a = document.createElement(`a`);
+                a.innerText = `${user.id} ${user.first_name} ${user.last_name}`;
+                a.href = `details.html?id=`+user.id;
+                h2.append(a);
+                let img = document.createElement(`img`);
+                img.setAttribute(`src`, user.avatar);
+                div.append(h2, img);
+                document.body.append(div);
+            }
+        });
+
+
+
+</script>
+</body>
+</html>

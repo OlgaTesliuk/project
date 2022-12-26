@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>details page</h1>
+<script>
+    let url = new URL(location.href);
+    console.log(url);
+    let id=url.searchParams.get("id");
+    console.log(id);
+
+    fetch('https://reqres.in/api/users' + id)
+    .then(response=> response.json)
+    .then(value => {
+let{data: user}=value;
+let div = document.createElement(`div`);
+let h2 = document.createElement(`h2`);
+h2.innerText= `${user.id}  ${user.first_name} ${user.last_mane}`;
+let img= document.createElement(`img`);
+img.src = user.avatar;
+
+div.append(h2, img)
+document.body.append(div);
+
+    })
+</script>
+</body>
+</html>

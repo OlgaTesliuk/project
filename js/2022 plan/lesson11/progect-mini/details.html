@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+    const url = new URL(location.href);
+    const id = url.searchParams.get('data');
+    const mDiv = document.createElement(`div`);
+    mDiv.classList.add(`mDivClass`);
+
+    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then(value => value.json())
+        .then(value => {
+
+
+            for (const item in value) {
+
+                const userDiv = document.createElement('div');
+                mDiv.append(userDiv);
+                if (typeof value[item] !== 'object') {
+
+                    userDiv.innerText = `${item} -- ${value[item]}`;
+                } else {
+                    userDiv.innerText = `${item} :`
+
+                    for (const key in value[item]) {
+                        const userInnerDiv = document.createElement('div');
+                        if (typeof value[item][key] !== 'object') {
+                            userInnerDiv.innerText = `${key} -- ${value[item][key]}`;
+
+                        } else {
+                            userInnerDiv.innerText = `${key} :`;
+
+                            for (const element in value[item][key]) {
+                                const htmlDivElement = document.createElement('div');
+                                if (typeof value[item][key][element] !== 'object') {
+                                    htmlDivElement.innerText = `${element} -- ${value[item][key][element]}`;
+                                }
+                                userInnerDiv.append(htmlDivElement);
+                            }
+                        }
+                        userDiv.append(userInnerDiv);
+                    }
+                }
+                document.body.append(mDiv);
+            }
+
+            let button = document.createElement('button');
+            button.innerText = "post of current user";
+            document.body.append(button);
+
+            button.onclick= function (){
+                fetch(`https://jsonplaceholder.typicode.com/users/${id}/posts`)
+                    .then(response=> response.json())
+                    .then(value => {
+                        let div1 =document.createElement(`div`);
+                        div1.classList.add(`mainDivClass`);
+                        button.append(div1);
+
+                        for (const valueElement of value) {
+
+                            let valueElementDiv = document.createElement(`div`);
+                            valueElementDiv.classList.add(`valueElementDivClass`);
+
+                            valueElementDiv.innerText =`${valueElement.title}`;
+
+                            let a = document.createElement(`a`);
+                            a.href= `post-details.html?post=${valueElement.id}`;
+                            a.innerText= `comments`;
+                            valueElementDiv.appendChild(a);
+
+                            div1.appendChild(valueElementDiv);
+                        }
+                    })
+            }
+
+        });
+
+
+</script>
+</body>
+</html>
